@@ -11,7 +11,7 @@ const PagesLayout = ({ PageHeading, MainSectionHeading }) => {
       <Navbar/>
       <div class="MainSection">
         <h2 class="MainSectionHeading">{MainSectionHeading}</h2>
-        <AvailableMoviesTable/>
+        {/* <AvailableMoviesTable/> */}
       </div>
       <Footer/>
     </div>

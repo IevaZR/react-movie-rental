@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./HomePageMovieItem.css";
 import AvailableIcon from "../../Assets/available-icon.png";
 import NotAvailableIcon from "../../Assets/not-available-icon.png";
 
-const HomePageMovieItem = ({ movie }) => {
+const HomePageMovieItem = ({ movie, rentMovie }) => {
+
   return (
     <div>
       <table className="MovieTable">
@@ -25,6 +26,7 @@ const HomePageMovieItem = ({ movie }) => {
                     ? "HomePageMovieTableButton"
                     : "HomePageMovieTableButton OutOfStockButton"
                 }
+                onClick={() => rentMovie(movie.movieName)}
               >
                 Rent
               </button>
