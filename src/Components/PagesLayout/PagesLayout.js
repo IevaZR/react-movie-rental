@@ -2,6 +2,7 @@ import React from "react";
 import "./PagesLayout.css"
 import Navbar from "../Navbar/Navbar";
 import AvailableMoviesTable from "../AvailableMoviesTable/AvailableMoviesTable";
+import Footer from "../Footer/Footer";
 
 const PagesLayout = ({ PageHeading, MainSectionHeading }) => {
   return (
@@ -12,6 +13,7 @@ const PagesLayout = ({ PageHeading, MainSectionHeading }) => {
         <h2 class="MainSectionHeading">{MainSectionHeading}</h2>
         <AvailableMoviesTable/>
       </div>
+      <Footer/>
     </div>
   );
 };

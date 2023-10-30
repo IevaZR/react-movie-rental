@@ -1,0 +1,13 @@
+.FooterWrapper {
+    background-color: #363636;
+    display: flex;
+    justify-content: space-between;
+    padding: 2.5rem 2rem 0 2rem;
+    width: 100%;
+  }
+  
+  .FooterWrapper p {
+    color: #ffffff;
+    font-family: "Inter";
+    font-size: 0.8rem;
+  }

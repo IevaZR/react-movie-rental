@@ -1,5 +1,5 @@
 import React from "react";
-import PagesLayout from "../Components/PagesLayout/PagesLayout";
+import PagesLayout from "../../Components/PagesLayout/PagesLayout";
 
 const HomePage = () => {
   return (
