@@ -47,13 +47,11 @@ const AvailableMoviesTable = () => {
 
     if (!movieToAdd) {
       const newMovie = { ...rentedMovie, count: 1 };
-      console.log(newMovie);
+
       userMovies.push(newMovie);
     } else {
       movieToAdd.count++;
     }
-
-    console.log(userMovies);
 
     const updatedUser = {
       ...currentUser,
