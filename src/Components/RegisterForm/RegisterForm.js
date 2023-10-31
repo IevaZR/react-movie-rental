@@ -10,7 +10,7 @@ const RegisterForm = () => {
     password1: "",
     password2: "",
   });
-  const [newUser, setNewUser] = useState({
+  const [setNewUser] = useState({
     id: "",
     firstName: "",
     lastName: "",

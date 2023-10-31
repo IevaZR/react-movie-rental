@@ -5,7 +5,7 @@ import HomePageMovieItem from "../HomePageMovieItem/HomePageMovieItem";
 
 const AvailableMoviesTable = () => {
   const [availableMovies, setAvailableMovies] = useState([]);
-  const [currentUser, setCurrentUser] = useState(
+  const [currentUser] = useState(
     JSON.parse(localStorage.getItem("current-user"))
   );
 
