@@ -36,8 +36,19 @@ const ProfilePage = () => {
       };
       setCurrentUser(updatedUser);
       localStorage.setItem("current-user", JSON.stringify(updatedUser));
-    } else {
-      alert("Email not valid");
+
+      const users = JSON.parse(
+        localStorage.getItem("react-movie-rental-users")
+      );
+      const userIndex = users.findIndex((user) => user.id === updatedUser.id);
+
+      if (userIndex !== -1) {
+        users[userIndex] = updatedUser;
+
+        localStorage.setItem("react-movie-rental-users", JSON.stringify(users));
+      } else {
+        alert("Email not valid");
+      }
     }
   };
 

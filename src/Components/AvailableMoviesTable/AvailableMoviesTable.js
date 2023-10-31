@@ -5,6 +5,9 @@ import HomePageMovieItem from "../HomePageMovieItem/HomePageMovieItem";
 
 const AvailableMoviesTable = () => {
   const [availableMovies, setAvailableMovies] = useState([]);
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("current-user"))
+  );
 
   useEffect(() => {
     const movies = JSON.parse(localStorage.getItem("reactMovieList"));
@@ -36,28 +39,43 @@ const AvailableMoviesTable = () => {
 
     setAvailableMovies(updatedAvailbaleMovies);
 
-    const yourMovies =
-      JSON.parse(localStorage.getItem("reactYourMovies")) || [];
+    const userMovies = currentUser.rentedMovies;
 
-    const movieToAdd = yourMovies.find(
+    const movieToAdd = userMovies.find(
       (item) => item.movieName === rentedMovie.movieName
     );
 
     if (!movieToAdd) {
       const newMovie = { ...rentedMovie, count: 1 };
       console.log(newMovie);
-      yourMovies.push(newMovie);
+      userMovies.push(newMovie);
     } else {
       movieToAdd.count++;
     }
 
-    console.log(yourMovies);
+    console.log(userMovies);
 
-    localStorage.setItem("reactYourMovies", JSON.stringify(yourMovies));
+    const updatedUser = {
+      ...currentUser,
+      rentedMovies: userMovies,
+    };
+
+    localStorage.setItem("current-user", JSON.stringify(updatedUser));
     localStorage.setItem(
       "reactMovieList",
       JSON.stringify(updatedAvailbaleMovies)
     );
+
+    const users = JSON.parse(localStorage.getItem("react-movie-rental-users"));
+    const userIndex = users.findIndex((user) => user.id === updatedUser.id);
+
+    if (userIndex !== -1) {
+      users[userIndex] = updatedUser;
+
+      localStorage.setItem("react-movie-rental-users", JSON.stringify(users));
+    } else {
+      alert("Email not valid");
+    }
   };
 
   return (

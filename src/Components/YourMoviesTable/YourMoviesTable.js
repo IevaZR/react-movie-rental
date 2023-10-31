@@ -4,16 +4,20 @@ import YourMoviesItem from "../YourMoviesItem/YourMoviesItem";
 import { useState } from "react";
 
 const YourMoviesTable = () => {
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("current-user"))
+  );
   const [yourMovies, setYourMovies] = useState([]);
   const [availableMovies, setAvailableMovies] = useState(
     JSON.parse(localStorage.getItem("reactMovieList"))
   );
 
   useEffect(() => {
-    const movies = JSON.parse(localStorage.getItem("reactYourMovies"));
+    const movies = currentUser.rentedMovies;
     if (movies && movies.length > 0) {
       setYourMovies(movies);
     }
+    console.log(yourMovies);
   }, []);
 
   const removeMovie = (movieToRemove) => {
@@ -25,15 +29,59 @@ const YourMoviesTable = () => {
       const updatedMovies = [...yourMovies];
       const removedMovie = updatedMovies[removedMovieIndex];
 
+      console.log(currentUser);
       if (removedMovie.count > 1) {
         removedMovie.count--;
         updatedMovies[removedMovieIndex] = removedMovie;
         setYourMovies(updatedMovies);
-        localStorage.setItem("reactYourMovies", JSON.stringify(yourMovies));
+
+        const updatedUser = {
+          ...currentUser,
+          rentedMovies: updatedMovies,
+        };
+        console.log(updatedUser);
+        localStorage.setItem("current-user", JSON.stringify(updatedUser));
+
+        const users = JSON.parse(
+          localStorage.getItem("react-movie-rental-users")
+        );
+        const userIndex = users.findIndex((user) => user.id === updatedUser.id);
+
+        if (userIndex !== -1) {
+          users[userIndex] = updatedUser;
+
+          localStorage.setItem(
+            "react-movie-rental-users",
+            JSON.stringify(users)
+          );
+        } else {
+          alert("Email not valid");
+        }
       } else if (removedMovie.count === 1) {
+        console.log(removedMovie);
+        console.log(updatedMovies);
         updatedMovies.splice(removedMovieIndex, 1);
         setYourMovies(updatedMovies);
-        localStorage.setItem("reactYourMovies", JSON.stringify(yourMovies));
+        const updatedUser = {
+          ...currentUser,
+          rentedMovies: updatedMovies,
+        };
+        console.log(updatedUser);
+        localStorage.setItem("current-user", JSON.stringify(updatedUser));
+
+        const users = JSON.parse(
+          localStorage.getItem("react-movie-rental-users")
+        );
+        const userIndex = users.findIndex((user) => user.id === updatedUser.id);
+
+        if (userIndex !== -1) {
+          users[userIndex] = updatedUser;
+
+          localStorage.setItem(
+            "react-movie-rental-users",
+            JSON.stringify(users)
+          );
+        }
       }
     }
 
@@ -55,6 +103,7 @@ const YourMoviesTable = () => {
   };
 
   if (yourMovies.length === 0) {
+    console.log(yourMovies);
     return <div>No movies to show</div>;
   }
 
