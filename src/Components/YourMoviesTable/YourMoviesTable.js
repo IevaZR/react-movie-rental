@@ -4,7 +4,7 @@ import YourMoviesItem from "../YourMoviesItem/YourMoviesItem";
 import { useState } from "react";
 
 const YourMoviesTable = () => {
-  const [currentUser] = useState(
+  const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("current-user"))
   );
   const [yourMovies, setYourMovies] = useState([]);

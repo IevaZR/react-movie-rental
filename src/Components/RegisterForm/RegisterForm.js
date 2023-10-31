@@ -10,12 +10,13 @@ const RegisterForm = () => {
     password1: "",
     password2: "",
   });
-  const [setNewUser] = useState({
+  const [newUser, setNewUser] = useState({
     id: "",
     firstName: "",
     lastName: "",
     email: "",
     password: "",
+    rentedMovies: []
   });
   const [firstNameErrorMsg, setFirstNameErrorMsg] = useState(false);
   const [lastNameErrorMsg, setLastNameErrorMsg] = useState(false);
@@ -51,6 +52,7 @@ const RegisterForm = () => {
       lastName: surname,
       email: email,
       password: password,
+      rentedMovies: []
     };
     setNewUser(newUserToAdd);
     const updatedUsers = [...users, newUserToAdd];
