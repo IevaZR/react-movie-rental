@@ -17,7 +17,6 @@ const YourMoviesTable = () => {
     if (movies && movies.length > 0) {
       setYourMovies(movies);
     }
-    console.log(yourMovies);
   }, []);
 
   const removeMovie = (movieToRemove) => {
@@ -29,7 +28,6 @@ const YourMoviesTable = () => {
       const updatedMovies = [...yourMovies];
       const removedMovie = updatedMovies[removedMovieIndex];
 
-      console.log(currentUser);
       if (removedMovie.count > 1) {
         removedMovie.count--;
         updatedMovies[removedMovieIndex] = removedMovie;
@@ -39,7 +37,7 @@ const YourMoviesTable = () => {
           ...currentUser,
           rentedMovies: updatedMovies,
         };
-        console.log(updatedUser);
+
         localStorage.setItem("current-user", JSON.stringify(updatedUser));
 
         const users = JSON.parse(
@@ -58,15 +56,13 @@ const YourMoviesTable = () => {
           alert("Email not valid");
         }
       } else if (removedMovie.count === 1) {
-        console.log(removedMovie);
-        console.log(updatedMovies);
         updatedMovies.splice(removedMovieIndex, 1);
         setYourMovies(updatedMovies);
         const updatedUser = {
           ...currentUser,
           rentedMovies: updatedMovies,
         };
-        console.log(updatedUser);
+
         localStorage.setItem("current-user", JSON.stringify(updatedUser));
 
         const users = JSON.parse(
@@ -103,7 +99,7 @@ const YourMoviesTable = () => {
   };
 
   if (yourMovies.length === 0) {
-    console.log(yourMovies);
+    
     return <div>No movies to show</div>;
   }
 
