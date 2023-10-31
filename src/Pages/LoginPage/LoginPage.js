@@ -10,6 +10,7 @@ const LoginPage = () => {
     JSON.parse(localStorage.getItem("current-user"))
   );
   const navigate = useNavigate();
+ 
 
   useEffect(() => {
     if (currentUser) {
