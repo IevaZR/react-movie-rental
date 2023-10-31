@@ -7,9 +7,7 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const [users] = useState(
-    JSON.parse(localStorage.getItem("react-movie-rental-users"))
-  );
+
   const [loginErrorMsg, setLoginErrorMsg] = useState(false);
   const navigate = useNavigate()
 
@@ -26,7 +24,7 @@ const LoginForm = () => {
       password: inputData.password,
     };
 
-    const userData = users;
+    const userData = JSON.parse(localStorage.getItem("react-movie-rental-users"));
     if (userData) {
       const userFound = userData.some((item) => item.email === user.email);
       if (userFound) {
