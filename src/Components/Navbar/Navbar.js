@@ -1,8 +1,14 @@
 import React from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const logOut = () => {
+    localStorage.removeItem("current-user");
+    navigate("/");
+  };
   return (
     <nav className="NavBarWrapper">
       <div>
@@ -10,13 +16,13 @@ const Navbar = () => {
           Home
         </Link>
         <Link to="/your-movies-page" className="NavBarLink">
-         Your movies
+          Your movies
         </Link>
         <Link to="/profile-page" className="NavBarLink">
-         Profile
+          Profile
         </Link>
       </div>
-      <button className="LogOutButton" id="LogOutButton">
+      <button className="LogOutButton" id="LogOutButton" onClick={logOut}>
         Log out
       </button>
     </nav>

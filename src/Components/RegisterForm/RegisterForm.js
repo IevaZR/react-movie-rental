@@ -33,9 +33,9 @@ const RegisterForm = () => {
     useState(false);
   const [passwordTwoMatchErrorMsg, setPasswordTwoMatchErrorMsg] =
     useState(false);
-  const [users, setUsers] = useState(
-    JSON.parse(localStorage.getItem("react-movie-rental-users")) || []
-  );
+    const [users, setUsers] = useState(
+      JSON.parse(localStorage.getItem("react-movie-rental-users")) || []
+    );
 
   const handleInputData = (event) => {
     setInputData((previous) => ({
