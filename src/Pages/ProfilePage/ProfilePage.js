@@ -4,11 +4,10 @@ import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import { useNavigate } from "react-router-dom";
 import Profile from "../../Components/Profile/Profile";
+import { useSelector } from "react-redux";
 
 const ProfilePage = () => {
-  const [currentUser] = useState(
-    JSON.parse(localStorage.getItem("current-user"))
-  );
+  const currentUser = useSelector(state => state.user.currentUser)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const ProfilePage = () => {
       <div className="ProfilePageMainSectionWrapper">
         <div className="ProfilePageMainSection">
           <h2 className="ProfilePageMainSectionHeading">Profile</h2>
-          <Profile />
+          <Profile currentUser={currentUser}/>
         </div>
       </div>
       <Footer />

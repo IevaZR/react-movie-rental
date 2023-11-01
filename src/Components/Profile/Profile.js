@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import "./Profile.css";
 import ProfilePicture from "../../Assets/profile-photo.png";
 
-const Profile = () => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("current-user"))
-  );
+const Profile = ({currentUser}) => {
 
   function emailValidationCheck(email) {
     const validEmailRegex =
@@ -24,7 +21,7 @@ const Profile = () => {
         ...currentUser,
         email: email,
       };
-      setCurrentUser(updatedUser);
+      // setCurrentUser(updatedUser);
       localStorage.setItem("current-user", JSON.stringify(updatedUser));
 
       const users = JSON.parse(

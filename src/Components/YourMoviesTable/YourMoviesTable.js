@@ -3,10 +3,7 @@ import "./YourMoviesTable.css";
 import YourMoviesItem from "../YourMoviesItem/YourMoviesItem";
 import { useState } from "react";
 
-const YourMoviesTable = () => {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("current-user"))
-  );
+const YourMoviesTable = ({currentUser}) => {
   const [yourMovies, setYourMovies] = useState([]);
   const [availableMovies, setAvailableMovies] = useState(
     JSON.parse(localStorage.getItem("reactMovieList"))

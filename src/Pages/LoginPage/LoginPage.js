@@ -4,12 +4,11 @@ import Footer from "../../Components/Footer/Footer";
 import LoginForm from "../../Components/LoginForm/LoginForm";
 import RegisterForm from "../../Components/RegisterForm/RegisterForm";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 const LoginPage = () => {
-  const [currentUser] = useState(
-    JSON.parse(localStorage.getItem("current-user"))
-  );
+  const currentUser = useSelector(state => state.user.currentUser)
   const navigate = useNavigate();
  
 

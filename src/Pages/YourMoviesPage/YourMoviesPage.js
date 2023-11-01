@@ -4,11 +4,10 @@ import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import YourMoviesTable from "../../Components/YourMoviesTable/YourMoviesTable";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const YourMoviesPage = () => {
-  const [currentUser] = useState(
-    JSON.parse(localStorage.getItem("current-user"))
-  );
+  const currentUser = useSelector(state => state.user.currentUser)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,7 +21,7 @@ const YourMoviesPage = () => {
       <div className="YourMoviesPageMainSectionWrapper">
         <div className="YourMoviesPageMainSection">
           <h2 className="YourMoviesPageMainSectionHeading">Your Movies</h2>
-          <YourMoviesTable />
+          <YourMoviesTable currentUser={currentUser}/>
         </div>
       </div>
       <Footer />

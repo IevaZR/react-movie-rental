@@ -4,18 +4,18 @@ import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";
 import AvailableMoviesTable from "../../Components/AvailableMoviesTable/AvailableMoviesTable";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
 
-  const [currentUser] = useState(
-    JSON.parse(localStorage.getItem("current-user"))
-  );
+  const currentUser = useSelector(state => state.user.currentUser)
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!currentUser) {
       navigate("/");
     }
+    console.log(currentUser)
   });
 
   return (
@@ -24,7 +24,7 @@ const HomePage = () => {
       <div className="HomePageMainSectionWrapper">
         <div className="HomePageMainSection">
           <h2 className="HomePageMainSectionHeading">Available Movies</h2>
-          <AvailableMoviesTable/>
+          <AvailableMoviesTable currentUser={currentUser}/>
         </div>
       </div>
       <Footer/>

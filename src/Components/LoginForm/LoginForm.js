@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./LoginForm.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setCurrentUser } from "../../Redux/userSlice";
 
 const LoginForm = () => {
   const [inputData, setInputData] = useState({
@@ -10,6 +12,8 @@ const LoginForm = () => {
   
   const [loginErrorMsg, setLoginErrorMsg] = useState(false);
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.user.currentUser)
 
   const handleInputData = (event) => {
     setInputData((previous) => ({
@@ -18,7 +22,7 @@ const LoginForm = () => {
     }));
   };
 
-  const loginUser = () => {
+  const handleLoginUser = () => {
     const user = {
       email: inputData.email,
       password: inputData.password,
@@ -30,8 +34,10 @@ const LoginForm = () => {
       if (userFound) {
         const matchedUser = userData.find((item) => item.email === user.email);
         if (matchedUser.password === user.password) {
-          localStorage.setItem("current-user", JSON.stringify(matchedUser));
+          dispatch(setCurrentUser(matchedUser))
           navigate('/home-page')
+          console.log(matchedUser)
+          console.log(currentUser)
         } else {
           setLoginErrorMsg(true);
         }
@@ -71,7 +77,7 @@ const LoginForm = () => {
       <button
         type="button"
         className="BlackButton Centered"
-        onClick={loginUser}
+        onClick={handleLoginUser}
       >
         Sign in
       </button>

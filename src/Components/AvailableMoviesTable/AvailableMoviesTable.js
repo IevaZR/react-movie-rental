@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import "./AvailableMoviesTable.css";
 import originalMovieList from "../../Database/MoviesInStock";
 import HomePageMovieItem from "../HomePageMovieItem/HomePageMovieItem";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../Redux/userSlice";
 
-const AvailableMoviesTable = () => {
+
+const AvailableMoviesTable = ({currentUser}) => {
   const [availableMovies, setAvailableMovies] = useState([]);
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("current-user"))
-  );
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const movies = JSON.parse(localStorage.getItem("reactMovieList"));
@@ -58,7 +59,7 @@ const AvailableMoviesTable = () => {
       rentedMovies: userMovies,
     };
 
-    localStorage.setItem("current-user", JSON.stringify(updatedUser));
+    dispatch(setCurrentUser(updatedUser))
     localStorage.setItem(
       "reactMovieList",
       JSON.stringify(updatedAvailbaleMovies)
