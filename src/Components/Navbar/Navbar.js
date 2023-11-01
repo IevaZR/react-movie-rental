@@ -1,13 +1,18 @@
 import React from "react";
 import "./Navbar.css";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../Redux/userSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const currentUser = useSelector(state => state.user.currentUser)
 
   const logOut = () => {
-    localStorage.removeItem("current-user");
+   dispatch(logoutUser(currentUser))
     navigate("/");
+    console.log(currentUser)
   };
   return (
     <nav className="NavBarWrapper">

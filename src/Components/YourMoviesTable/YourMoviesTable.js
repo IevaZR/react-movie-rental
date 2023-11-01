@@ -2,40 +2,40 @@ import React, { useEffect } from "react";
 import "./YourMoviesTable.css";
 import YourMoviesItem from "../YourMoviesItem/YourMoviesItem";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../Redux/userSlice";
 
-const YourMoviesTable = ({currentUser}) => {
-  const [yourMovies, setYourMovies] = useState([]);
+const YourMoviesTable = ({ currentUser }) => {
+  const [yourMovies, setYourMovies] = useState(currentUser?.rentedMovies || []);
   const [availableMovies, setAvailableMovies] = useState(
     JSON.parse(localStorage.getItem("reactMovieList"))
   );
-
-  useEffect(() => {
-    const movies = currentUser.rentedMovies;
-    if (movies && movies.length > 0) {
-      setYourMovies(movies);
-    }
-  }, []);
+  const dispatch = useDispatch();
 
   const removeMovie = (movieToRemove) => {
     const removedMovieIndex = yourMovies.findIndex(
       (movie) => movie.movieName === movieToRemove.movieName
     );
+    let updatedUserMovies;
 
     if (removedMovieIndex !== -1) {
       const updatedMovies = [...yourMovies];
       const removedMovie = updatedMovies[removedMovieIndex];
 
       if (removedMovie.count > 1) {
-        removedMovie.count--;
-        updatedMovies[removedMovieIndex] = removedMovie;
-        setYourMovies(updatedMovies);
+        updatedUserMovies = currentUser.rentedMovies.map((item) =>
+          item.movieName === removedMovie.movieName
+            ? { ...item, count: item.count - 1 }
+            : item
+        );
+        setYourMovies(updatedUserMovies);
 
         const updatedUser = {
           ...currentUser,
-          rentedMovies: updatedMovies,
+          rentedMovies: updatedUserMovies,
         };
 
-        localStorage.setItem("current-user", JSON.stringify(updatedUser));
+        dispatch(setCurrentUser(updatedUser));
 
         const users = JSON.parse(
           localStorage.getItem("react-movie-rental-users")
@@ -60,7 +60,7 @@ const YourMoviesTable = ({currentUser}) => {
           rentedMovies: updatedMovies,
         };
 
-        localStorage.setItem("current-user", JSON.stringify(updatedUser));
+        dispatch(setCurrentUser(updatedUser));
 
         const users = JSON.parse(
           localStorage.getItem("react-movie-rental-users")
@@ -96,7 +96,6 @@ const YourMoviesTable = ({currentUser}) => {
   };
 
   if (yourMovies.length === 0) {
-    
     return <div>No movies to show</div>;
   }
 

@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Profile.css";
 import ProfilePicture from "../../Assets/profile-photo.png";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "../../Redux/userSlice";
 
 const Profile = ({currentUser}) => {
+  const dispatch = useDispatch()
 
   function emailValidationCheck(email) {
     const validEmailRegex =
@@ -21,7 +24,7 @@ const Profile = ({currentUser}) => {
         ...currentUser,
         email: email,
       };
-      // setCurrentUser(updatedUser);
+      dispatch(setCurrentUser(updatedUser))
       localStorage.setItem("current-user", JSON.stringify(updatedUser));
 
       const users = JSON.parse(
@@ -50,19 +53,19 @@ const Profile = ({currentUser}) => {
         <div className="ProfilePagePersonalInfo">
           <div className="ProfilePagePersonalInfoText">
             <p>
-              <strong>Name: {currentUser.firstName}</strong>
+              <strong>Name: {currentUser?.firstName}</strong>
             </p>
             <p id="UserName"></p>
           </div>
           <div className="ProfilePagePersonalInfoText">
             <p>
-              <strong>Surname: {currentUser.lastName}</strong>
+              <strong>Surname: {currentUser?.lastName}</strong>
             </p>
             <p id="UserSurname"></p>
           </div>
           <div className="ProfilePagePersonalInfoText">
             <p>
-              <strong>Email: {currentUser.email}</strong>
+              <strong>Email: {currentUser?.email}</strong>
             </p>
             <p id="UserEmail"></p>
           </div>

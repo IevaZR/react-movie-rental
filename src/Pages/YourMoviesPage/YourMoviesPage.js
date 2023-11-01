@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./YourMoviesPage.css";
 import Header from "../../Components/Header/Header";
 import Footer from "../../Components/Footer/Footer";

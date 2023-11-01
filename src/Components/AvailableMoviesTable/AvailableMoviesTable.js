@@ -5,10 +5,9 @@ import HomePageMovieItem from "../HomePageMovieItem/HomePageMovieItem";
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "../../Redux/userSlice";
 
-
-const AvailableMoviesTable = ({currentUser}) => {
+const AvailableMoviesTable = ({ currentUser }) => {
   const [availableMovies, setAvailableMovies] = useState([]);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const movies = JSON.parse(localStorage.getItem("reactMovieList"));
@@ -41,7 +40,7 @@ const AvailableMoviesTable = ({currentUser}) => {
     setAvailableMovies(updatedAvailbaleMovies);
 
     const userMovies = currentUser.rentedMovies;
-
+    let updatedUserMovies;
     const movieToAdd = userMovies.find(
       (item) => item.movieName === rentedMovie.movieName
     );
@@ -49,17 +48,21 @@ const AvailableMoviesTable = ({currentUser}) => {
     if (!movieToAdd) {
       const newMovie = { ...rentedMovie, count: 1 };
 
-      userMovies.push(newMovie);
+      updatedUserMovies = [...userMovies, newMovie];
     } else {
-      movieToAdd.count++;
+      updatedUserMovies = currentUser.rentedMovies.map((item) =>
+        item.movieName === rentedMovieName
+          ? { ...item, count: item.count + 1 }
+          : item
+      );
     }
 
     const updatedUser = {
       ...currentUser,
-      rentedMovies: userMovies,
+      rentedMovies: updatedUserMovies,
     };
 
-    dispatch(setCurrentUser(updatedUser))
+    dispatch(setCurrentUser(updatedUser));
     localStorage.setItem(
       "reactMovieList",
       JSON.stringify(updatedAvailbaleMovies)
