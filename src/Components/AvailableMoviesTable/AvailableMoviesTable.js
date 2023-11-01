@@ -5,7 +5,7 @@ import HomePageMovieItem from "../HomePageMovieItem/HomePageMovieItem";
 
 const AvailableMoviesTable = () => {
   const [availableMovies, setAvailableMovies] = useState([]);
-  const [currentUser] = useState(
+  const [currentUser, setCurrentUser] = useState(
     JSON.parse(localStorage.getItem("current-user"))
   );
 
@@ -47,13 +47,11 @@ const AvailableMoviesTable = () => {
 
     if (!movieToAdd) {
       const newMovie = { ...rentedMovie, count: 1 };
-      console.log(newMovie);
+
       userMovies.push(newMovie);
     } else {
       movieToAdd.count++;
     }
-
-    console.log(userMovies);
 
     const updatedUser = {
       ...currentUser,

@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import { ActiveUserContext } from "./../../HelperFunctions/ActiveUserContext.js";
+import React, { useState } from "react";
 import "./LoginForm.css";
 import { useNavigate } from "react-router-dom";
 
@@ -8,10 +7,7 @@ const LoginForm = () => {
     email: "",
     password: "",
   });
-  const { activeUser, setActiveUser } = useContext(ActiveUserContext);
-  const [users, setUsers] = useState(
-    JSON.parse(localStorage.getItem("react-movie-rental-users"))
-  );
+  
   const [loginErrorMsg, setLoginErrorMsg] = useState(false);
   const navigate = useNavigate()
 
@@ -28,7 +24,7 @@ const LoginForm = () => {
       password: inputData.password,
     };
 
-    const userData = users;
+    const userData = JSON.parse(localStorage.getItem("react-movie-rental-users"));
     if (userData) {
       const userFound = userData.some((item) => item.email === user.email);
       if (userFound) {
