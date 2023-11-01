@@ -10,14 +10,6 @@ const RegisterForm = () => {
     password1: "",
     password2: "",
   });
-  const [newUser, setNewUser] = useState({
-    id: "",
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    rentedMovies: []
-  });
   const [firstNameErrorMsg, setFirstNameErrorMsg] = useState(false);
   const [lastNameErrorMsg, setLastNameErrorMsg] = useState(false);
   const [emailOneValidErrorMsg, setEmailOneValidErrorMsg] = useState(false);
@@ -34,9 +26,9 @@ const RegisterForm = () => {
     useState(false);
   const [passwordTwoMatchErrorMsg, setPasswordTwoMatchErrorMsg] =
     useState(false);
-    const [users, setUsers] = useState(
-      JSON.parse(localStorage.getItem("react-movie-rental-users")) || []
-    );
+  const [users, setUsers] = useState(
+    JSON.parse(localStorage.getItem("react-movie-rental-users")) || []
+  );
 
   const handleInputData = (event) => {
     setInputData((previous) => ({
@@ -52,9 +44,8 @@ const RegisterForm = () => {
       lastName: surname,
       email: email,
       password: password,
-      rentedMovies: []
+      rentedMovies: [],
     };
-    setNewUser(newUserToAdd);
     const updatedUsers = [...users, newUserToAdd];
     setUsers(updatedUsers);
 
